@@ -56,6 +56,28 @@ class ManageUsersHandler(AdminBaseHandler):
         self.dbsession.flush()
         self.render("admin/approved_user.html", user=user)
 
+class ViewUsersHandler(AdminBaseHandler):
+
+    @authenticated
+    @authorized('admin')
+    @restrict_ip_address
+    def get(self, *args, **kwargs):
+        ''' Renders the view users page '''
+        self.render("admin/view_users.html",
+                    total_users=User.get_all(),
+                    )
+
+    @authenticated
+    @authorized('admin')
+    @restrict_ip_address
+    def post(self, *args, **kwargs):
+        ''' Checks users '''
+        try:
+            user_name = self.get_argument("username")
+        except:
+            self.render("admin/error.html", error="No users found")
+        user = User.by_user_name(user_name)
+        self.dbsession.flush()
 
 class ManageJobsHandler(AdminBaseHandler):
 

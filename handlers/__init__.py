@@ -82,6 +82,8 @@ app = Application([
                   # Admin Handlers - Admin only pages
                   (r'/manageusers', ManageUsersHandler, {
                    'dbsession':dbsession}),
+                  (r'/viewusers', ViewUsersHandler, {
+                   'dbsession':dbsession}),
                   (r'/addweaponsystem', AddWeaponSystemsHandler, {
                    'dbsession':dbsession}),
                   (r'/editweaponsystem', EditWeaponSystemsHandler, {
